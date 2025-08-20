@@ -5,6 +5,8 @@ import '../theme/app_theme.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
@@ -271,7 +273,8 @@ class LoginScreen extends StatelessWidget {
                                 style: TextStyle(color: Colors.grey)),
                             GestureDetector(
                               onTap: () {
-                                // Navegar para tela de cadastro
+                                Navigator.pushNamed(
+                                    context, Routes.registerChoice);
                               },
                               child: const Text(
                                 "Registre-se agora",
