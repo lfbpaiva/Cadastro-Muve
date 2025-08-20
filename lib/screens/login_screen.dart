@@ -5,55 +5,68 @@ import '../theme/app_theme.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, Routes.registerChoice);
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: AppTheme.mainGradient,
+      appBar: null,
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            colors: [
+              Colors.purple.shade900,
+              Colors.purple.shade800,
+              Colors.purple.shade400,
+            ],
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(height: 20),
-              Center(
-                child: FadeInUp(
-                  duration: const Duration(milliseconds: 1000),
-                  child: Image.asset(
-                    'assets/images/muvelogo.png',
-                    height: 250,
-                  ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(height: 20),
+
+            /// LOGO
+            Center(
+              child: FadeInUp(
+                duration: const Duration(milliseconds: 1000),
+                child: Image.asset(
+                  'assets/images/muvelogo.png',
+                  height: 250,
                 ),
               ),
-              const SizedBox(height: 10),
-              // Título alinhado à esquerda
-              FadeInUp(
-                duration: const Duration(milliseconds: 1300),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    "Entrar",
-                    style: AppTheme.titleTextStyle,
-                    textAlign: TextAlign.left,
+            ),
+
+            const SizedBox(height: 10),
+
+            /// TÍTULOS
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1300),
+                    child: const Text(
+                      "Entrar",
+                      style: TextStyle(color: Colors.white, fontSize: 35),
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 5),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1300),
+                    child: const Text(
+                      "Bem-vindo de volta",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
-              // Container branco com campos e botões
-              Container(
+            ),
+
+            /// CONTAINER BRANCO EXPANDIDO
+            Expanded(
+              child: Container(
+                width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -65,11 +78,64 @@ class LoginScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: <Widget>[
+                      /// INPUTS
                       FadeInUp(
                         duration: const Duration(milliseconds: 1400),
-                        child: _buildInputFields(),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color.fromRGBO(225, 95, 27, .3),
+                                blurRadius: 20,
+                                offset: const Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                        color: Colors.grey.shade200),
+                                  ),
+                                ),
+                                child: const TextField(
+                                  decoration: InputDecoration(
+                                    hintText: "E-mail ou número de telefone",
+                                    hintStyle: TextStyle(color: Colors.grey),
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                        color: Colors.grey.shade200),
+                                  ),
+                                ),
+                                child: const TextField(
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    hintText: "Senha",
+                                    hintStyle: TextStyle(color: Colors.grey),
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
+
                       const SizedBox(height: 20),
+
+                      /// ESQUECEU SENHA
                       FadeInUp(
                         duration: const Duration(milliseconds: 1500),
                         child: const Text(
@@ -77,18 +143,33 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(color: Colors.grey),
                         ),
                       ),
+
                       const SizedBox(height: 30),
+
+                      /// BOTÃO ENTRAR
                       FadeInUp(
                         duration: const Duration(milliseconds: 1600),
-                        child: ElevatedButton(
+                        child: MaterialButton(
                           onPressed: () {},
-                          style: AppTheme.mainButtonStyle,
+                          height: 45,
+                          color: Colors.purple[900],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
                           child: const Center(
-                            child: Text("Entrar"),
+                            child: Text(
+                              "Entrar",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
+
                       const SizedBox(height: 40),
+
+                      /// TEXTO SOCIAL LOGIN
                       FadeInUp(
                         duration: const Duration(milliseconds: 1700),
                         child: const Text(
@@ -96,117 +177,123 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(color: Colors.grey),
                         ),
                       ),
+
                       const SizedBox(height: 20),
-                      _buildSocialButtons(),
+
+                      /// BOTÕES REDES SOCIAIS
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: FadeInUp(
+                              duration: const Duration(milliseconds: 1800),
+                              child: MaterialButton(
+                                onPressed: () {},
+                                height: 45,
+                                color: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  side: BorderSide.none,
+                                ),
+                                elevation: 0,
+                                child: Center(
+                                  child: Container(
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      gradient: const LinearGradient(
+                                        colors: [Colors.blue, Colors.blueAccent],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      ),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        "Google",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: FadeInUp(
+                              duration: const Duration(milliseconds: 1900),
+                              child: MaterialButton(
+                                onPressed: () {},
+                                height: 45,
+                                color: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  side: BorderSide.none,
+                                ),
+                                elevation: 0,
+                                child: Center(
+                                  child: Container(
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      gradient: const LinearGradient(
+                                        colors: [Colors.pink, Colors.orange],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      ),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        "Instagram",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const Spacer(),
+
+                      /// TEXTO FINAL "REGISTRE-SE"
+                      FadeInUp(
+                        duration: const Duration(milliseconds: 2000),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Não possui conta? ",
+                                style: TextStyle(color: Colors.grey)),
+                            GestureDetector(
+                              onTap: () {
+                                // Navegar para tela de cadastro
+                              },
+                              child: const Text(
+                                "Registre-se agora",
+                                style: TextStyle(
+                                  color: Colors.purple,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildInputFields() {
-    return Column(
-      children: [
-        _buildTextField("E-mail ou número de telefone"),
-        const SizedBox(height: 10),
-        _buildTextField("Senha", obscureText: true),
-      ],
-    );
-  }
-
-  Widget _buildTextField(String hint, {bool obscureText = false}) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: const Color.fromRGBO(225, 95, 27, .3),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: TextField(
-        obscureText: obscureText,
-        decoration: AppTheme.inputDecoration(hint: hint),
-      ),
-    );
-  }
-
-  Widget _buildSocialButtons() {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: FadeInUp(
-            duration: const Duration(milliseconds: 1800),
-            child: MaterialButton(
-              onPressed: () {},
-              height: 45,
-              color: Colors.transparent,
-              elevation: 0,
-              child: Container(
-                height: 45,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.blue, Colors.blueAccent],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Google",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
             ),
-          ),
+          ],
         ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: FadeInUp(
-            duration: const Duration(milliseconds: 1900),
-            child: MaterialButton(
-              onPressed: () {},
-              height: 45,
-              color: Colors.transparent,
-              elevation: 0,
-              child: Container(
-                height: 45,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.pink, Colors.orange],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Instagram",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

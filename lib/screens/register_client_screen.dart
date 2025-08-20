@@ -15,71 +15,60 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, Routes.registerChoice);
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              colors: [
-                Colors.purple.shade900,
-                Colors.purple.shade800,
-                Colors.purple.shade400,
-              ],
-            ),
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            colors: [
+              Colors.purple.shade900,
+              Colors.purple.shade800,
+              Colors.purple.shade400,
+            ],
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(height: 20),
-              Center(
-                child: FadeInUp(
-                  duration: const Duration(milliseconds: 1000),
-                  child: Image.asset(
-                    'assets/images/muvelogo.png',
-                    height: 250,
+        ),
+        child: Column(
+          children: [
+            // Parte roxa (gradient) que ocupa o topo
+            Expanded(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1000),
+                    child: Image.asset(
+                      'assets/images/muvelogo.png',
+                      height: 250,
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    FadeInUp(
-                      duration: const Duration(milliseconds: 1300),
-                      child: const Text(
-                        "Cadastro de Contratante",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold),
-                      ),
+                  const SizedBox(height: 20),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1200),
+                    child: const Text(
+                      "Cadastro de Contratante",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 5),
-                    FadeInUp(
-                      duration: const Duration(milliseconds: 1300),
-                      child: const Text(
-                        "Preencha seus dados para continuar",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
+                  ),
+                  const SizedBox(height: 10),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1300),
+                    child: const Text(
+                      "Preencha seus dados para continuar",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 30),
-              Container(
+            ),
+
+            // Parte branca (inputs) que ocupa o resto
+            Expanded(
+              flex: 3,
+              child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -87,17 +76,30 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
                     topRight: Radius.circular(60),
                   ),
                 ),
-                child: Padding(
+                child: SingleChildScrollView(
                   padding: const EdgeInsets.all(20),
                   child: Column(
-                    children: <Widget>[
+                    children: [
                       const SizedBox(height: 30),
+
+                      // Nome
                       _buildInputField(
                         hint: "Nome completo",
                         icon: Icons.person,
                         delay: 1400,
                       ),
                       const SizedBox(height: 20),
+
+                      // E-mail (novo campo)
+                      _buildInputField(
+                        hint: "E-mail",
+                        icon: Icons.email,
+                        delay: 1450,
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Telefone
                       _buildInputField(
                         hint: "Telefone para autenticação",
                         icon: Icons.phone,
@@ -105,6 +107,8 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
                         keyboardType: TextInputType.phone,
                       ),
                       const SizedBox(height: 20),
+
+                      // Dropdown Pessoa Física/Jurídica
                       FadeInUp(
                         duration: const Duration(milliseconds: 1600),
                         child: Container(
@@ -124,8 +128,7 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
                             value: tipoPessoa,
                             isExpanded: true,
                             underline: const SizedBox(),
-                            icon:
-                            const Icon(Icons.arrow_drop_down, color: Colors.grey),
+                            icon: const Icon(Icons.arrow_drop_down, color: Colors.grey),
                             items: <String>["Pessoa Física", "Pessoa Jurídica"]
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
@@ -143,6 +146,8 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
+
+                      // CPF ou CNPJ
                       if (tipoPessoa == "Pessoa Física")
                         _buildInputField(
                           hint: "CPF",
@@ -164,7 +169,10 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
                           delay: 1800,
                         ),
                       ],
+
                       const SizedBox(height: 30),
+
+                      // Botão Registrar
                       FadeInUp(
                         duration: const Duration(milliseconds: 1900),
                         child: MaterialButton(
@@ -191,8 +199,8 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
