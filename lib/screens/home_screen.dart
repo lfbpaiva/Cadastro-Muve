@@ -91,11 +91,28 @@ class _TabsHeader extends StatelessWidget {
   }
 }
 
-class _ComposerCard extends StatelessWidget {
-  const _ComposerCard();
+class _ComposerCard extends StatefulWidget {
+  const _ComposerCard({super.key});
+  @override
+  State<_ComposerCard> createState() => _ComposerCardState();
+}
+
+class _ComposerCardState extends State<_ComposerCard> {
+  final _controller = TextEditingController();
+  final _focus = FocusNode();
+  static const int _maxChars = 280;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focus.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final canPost = _controller.text.trim().isNotEmpty;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.10),
@@ -108,19 +125,59 @@ class _ComposerCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.08),
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: Text(
-                    'O que está acontecendo?',
-                    style: TextStyle(color: Colors.white.withOpacity(0.85)),
+                  child: TextField(
+                    controller: _controller,
+                    focusNode: _focus,
+                    maxLines: null,
+                    minLines: 1,
+                    keyboardType: TextInputType.multiline,
+                    maxLength: _maxChars,
+                    textInputAction: TextInputAction.send,
+                    onSubmitted: (_) {
+                      if (!canPost) return;
+                      final text = _controller.text.trim();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Post enviado: $text')),
+                      );
+                      _controller.clear();
+                      setState(() {});
+                    },
+                    buildCounter: (context,
+                        {required int currentLength,
+                          required bool isFocused,
+                          int? maxLength}) =>
+                    const SizedBox.shrink(),
+                    style: TextStyle(color: Colors.white.withOpacity(0.95)),
+                    decoration: InputDecoration(
+                      isDense: true,
+                      hintText: 'O que está acontecendo?',
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(0.85)),
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (_) => setState(() {}),
                   ),
                 ),
               ),
               const SizedBox(width: 10),
-              _PillButton(label: 'Postar', onTap: () {}),
+              _PillButton(
+                label: 'Postar',
+                enabled: canPost,
+                onTap: canPost
+                    ? () {
+                  final text = _controller.text.trim();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Post enviado: $text')),
+                  );
+                  _controller.clear();
+                  setState(() {});
+                }
+                    : null,
+              ),
             ],
           ),
           const SizedBox(height: 10),
@@ -131,6 +188,16 @@ class _ComposerCard extends StatelessWidget {
               _ComposerIcon(icon: Icons.emoji_emotions_outlined),
             ],
           ),
+          if (_controller.text.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                '${_controller.text.length}/$_maxChars',
+                style: TextStyle(color: Colors.white70, fontSize: 12),
+              ),
+            ),
+          ],
         ],
       ),
     );
@@ -155,7 +222,7 @@ class _PostCardPatrocinado extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const _Avatar(), // avatar nos posts permanece
+              const _Avatar(),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -185,8 +252,10 @@ class _PostCardPatrocinado extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          const Text('Lançamento do meu single!',
-              style: TextStyle(color: Colors.white, fontSize: 16)),
+          const Text(
+            'Lançamento do meu single!',
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
           const SizedBox(height: 8),
           Text('Patrocinado',
               style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 12)),
@@ -342,25 +411,40 @@ class _ComposerIcon extends StatelessWidget {
 
 class _PillButton extends StatelessWidget {
   final String label;
-  final VoidCallback onTap;
-  const _PillButton({required this.label, required this.onTap});
+  final VoidCallback? onTap;
+  final bool enabled;
+
+  const _PillButton({
+    required this.label,
+    this.onTap,
+    this.enabled = true,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final gradientEnabled = const LinearGradient(
+      colors: [Color(0xFF4A148C), Color(0xFF6A1B9A)],
+    );
+    final gradientDisabled = const LinearGradient(
+      colors: [Color(0x33FFFFFF), Color(0x33FFFFFF)],
+    );
+
     return InkWell(
       borderRadius: BorderRadius.circular(24),
-      onTap: onTap,
+      onTap: enabled ? onTap : null,
       child: Ink(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
-          gradient: const LinearGradient(
-            colors: [Color(0xFF4A148C), Color(0xFF6A1B9A)],
-          ),
+          gradient: enabled ? gradientEnabled : gradientDisabled,
         ),
         child: Text(
           label,
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: enabled ? Colors.white : Colors.white70,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -385,6 +469,7 @@ class _AudioPlayerMock extends StatelessWidget {
         children: [
           Row(
             children: [
+              // play/pause (mock)
               Container(
                 height: 40,
                 width: 40,
@@ -396,7 +481,6 @@ class _AudioPlayerMock extends StatelessWidget {
                     color: Colors.white.withOpacity(0.95)),
               ),
               const SizedBox(width: 12),
-              // waveform compacto
               const Expanded(child: _WaveformBars(height: 40)),
             ],
           ),
@@ -529,7 +613,7 @@ class _BottomBar extends StatelessWidget {
           children: const [
             _NavItem(icon: Icons.event, label: 'Eventos'),
             _NavItem(icon: Icons.search, label: 'Buscar'),
-            SizedBox(width: 56), // espaço do FAB central
+            SizedBox(width: 56),
             _NavItem(icon: Icons.chat_bubble_outline, label: 'Messages'),
             _NavItem(icon: Icons.person_outline, label: 'Perfil'),
           ],
