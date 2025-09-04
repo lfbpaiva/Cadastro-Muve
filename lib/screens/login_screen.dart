@@ -102,7 +102,8 @@ class LoginScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   border: Border(
                                     bottom: BorderSide(
-                                        color: Colors.grey.shade200),
+                                      color: Colors.grey.shade200,
+                                    ),
                                   ),
                                 ),
                                 child: const TextField(
@@ -118,7 +119,8 @@ class LoginScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   border: Border(
                                     bottom: BorderSide(
-                                        color: Colors.grey.shade200),
+                                      color: Colors.grey.shade200,
+                                    ),
                                   ),
                                 ),
                                 child: const TextField(
@@ -148,11 +150,16 @@ class LoginScreen extends StatelessWidget {
 
                       const SizedBox(height: 30),
 
-                      /// BOTÃO ENTRAR
+                      /// BOTÃO ENTRAR -> vai para HOME
                       FadeInUp(
                         duration: const Duration(milliseconds: 1600),
                         child: MaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              Routes.home, // ⬅ aqui é o ponto-chave
+                            );
+                          },
                           height: 45,
                           color: Colors.purple[900],
                           shape: RoundedRectangleBorder(
@@ -162,8 +169,9 @@ class LoginScreen extends StatelessWidget {
                             child: Text(
                               "Entrar",
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -182,7 +190,7 @@ class LoginScreen extends StatelessWidget {
 
                       const SizedBox(height: 20),
 
-                      /// BOTÕES REDES SOCIAIS
+                      /// BOTÕES REDES SOCIAIS (placeholders)
                       Row(
                         children: <Widget>[
                           Expanded(
@@ -212,8 +220,9 @@ class LoginScreen extends StatelessWidget {
                                       child: Text(
                                         "Google",
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -249,8 +258,9 @@ class LoginScreen extends StatelessWidget {
                                       child: Text(
                                         "Instagram",
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -269,12 +279,16 @@ class LoginScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text("Não possui conta? ",
-                                style: TextStyle(color: Colors.grey)),
+                            const Text(
+                              "Não possui conta? ",
+                              style: TextStyle(color: Colors.grey),
+                            ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(
-                                    context, Routes.registerChoice);
+                                  context,
+                                  Routes.registerChoice,
+                                );
                               },
                               child: const Text(
                                 "Registre-se agora",

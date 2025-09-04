@@ -15,13 +15,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 200), () {
-      setState(() {
-        _opacity = 1;
-      });
+      setState(() => _opacity = 1);
     });
 
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, Routes.login); // 🔥 alterado para login
+      Navigator.pushReplacementNamed(context, Routes.login);
     });
   }
 
@@ -38,10 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
             tween: Tween(begin: 0.5, end: 1.0),
             curve: Curves.easeOutBack,
             builder: (context, value, child) {
-              return Transform.scale(
-                scale: value,
-                child: child,
-              );
+              return Transform.scale(scale: value, child: child);
             },
             child: Image.asset(
               'assets/images/muvelogo.png',

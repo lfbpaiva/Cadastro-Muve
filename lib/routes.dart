@@ -4,6 +4,7 @@ import 'screens/login_screen.dart';
 import 'screens/register_choice_screen.dart';
 import 'screens/register_user_screen.dart';
 import 'screens/register_client_screen.dart';
+import 'screens/home_screen.dart'; // ⬅ novo import
 
 class Routes {
   static const splash = '/';
@@ -11,6 +12,7 @@ class Routes {
   static const registerChoice = '/register_choice';
   static const registerUser = '/register_user';
   static const registerClient = '/register_client';
+  static const home = '/home'; // ⬅ nova rota
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -19,6 +21,7 @@ class Routes {
       registerChoice: (context) => const RegisterChoiceScreen(),
       registerUser: (context) => const RegisterUserScreen(),
       registerClient: (context) => const RegisterClientScreen(),
+      home: (context) => const HomeScreen(), // ⬅ mapeamento da Home
     };
   }
 }
