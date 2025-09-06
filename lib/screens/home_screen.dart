@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart' as theme;
+import '../routes.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,14 +19,21 @@ class HomeScreen extends StatelessWidget {
           topLeft: Radius.circular(28),
           topRight: Radius.circular(28),
         ),
-        child: const _BottomBar(),
+        child: const _BottomBar(
+          // Conecte quando tiver as telas
+          onTapEvents: null,
+          onTapSearch: null,
+          onTapMessages: null,
+          // Perfil já navega
+          onTapProfileRoute: Routes.profile,
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(gradient: gradient),
         child: SafeArea(
           bottom: false,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 120),
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 160), // +folga p/ FAB/bar
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
@@ -44,6 +52,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+/* =================== UI SUPERIOR =================== */
 
 class _TabsHeader extends StatelessWidget {
   const _TabsHeader();
@@ -90,6 +100,8 @@ class _TabsHeader extends StatelessWidget {
     );
   }
 }
+
+/* =================== COMPOSER DIGITÁVEL =================== */
 
 class _ComposerCard extends StatefulWidget {
   const _ComposerCard({super.key});
@@ -147,10 +159,7 @@ class _ComposerCardState extends State<_ComposerCard> {
                       _controller.clear();
                       setState(() {});
                     },
-                    buildCounter: (context,
-                        {required int currentLength,
-                          required bool isFocused,
-                          int? maxLength}) =>
+                    buildCounter: (context, {required int currentLength, required bool isFocused, int? maxLength}) =>
                     const SizedBox.shrink(),
                     style: TextStyle(color: Colors.white.withOpacity(0.95)),
                     decoration: InputDecoration(
@@ -204,6 +213,8 @@ class _ComposerCardState extends State<_ComposerCard> {
   }
 }
 
+/* =================== POSTS EXEMPLO =================== */
+
 class _PostCardPatrocinado extends StatelessWidget {
   const _PostCardPatrocinado();
 
@@ -218,7 +229,6 @@ class _PostCardPatrocinado extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -230,13 +240,8 @@ class _PostCardPatrocinado extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Text(
-                          'musico123',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        const Text('musico123',
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                         const SizedBox(width: 6),
                         const _MuveBadge(),
                         const Spacer(),
@@ -244,18 +249,15 @@ class _PostCardPatrocinado extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 2),
-                    Text('há 2 h',
-                        style: TextStyle(color: Colors.white.withOpacity(0.7))),
+                    Text('há 2 h', style: TextStyle(color: Colors.white.withOpacity(0.7))),
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'Lançamento do meu single!',
-            style: TextStyle(color: Colors.white, fontSize: 16),
-          ),
+          const Text('Lançamento do meu single!',
+              style: TextStyle(color: Colors.white, fontSize: 16)),
           const SizedBox(height: 8),
           Text('Patrocinado',
               style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 12)),
@@ -264,13 +266,11 @@ class _PostCardPatrocinado extends StatelessWidget {
           const SizedBox(height: 8),
           Row(
             children: [
-              Icon(Icons.thumb_up_alt_outlined,
-                  color: Colors.white.withOpacity(0.9), size: 20),
+              Icon(Icons.thumb_up_alt_outlined, color: Colors.white.withOpacity(0.9), size: 20),
               const SizedBox(width: 6),
               Text('Curtir', style: TextStyle(color: Colors.white.withOpacity(0.9))),
               const SizedBox(width: 18),
-              Icon(Icons.mode_comment_outlined,
-                  color: Colors.white.withOpacity(0.9), size: 20),
+              Icon(Icons.mode_comment_outlined, color: Colors.white.withOpacity(0.9), size: 20),
               const SizedBox(width: 6),
               Text('Comentar', style: TextStyle(color: Colors.white.withOpacity(0.9))),
             ],
@@ -296,7 +296,6 @@ class _PostCardBanda extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -308,13 +307,8 @@ class _PostCardBanda extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Text(
-                          'bandaXYZ',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        const Text('bandaXYZ',
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                         const SizedBox(width: 6),
                         const _MuveBadge(),
                         const Spacer(),
@@ -322,16 +316,14 @@ class _PostCardBanda extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 2),
-                    Text('há 3 h',
-                        style: TextStyle(color: Colors.white.withOpacity(0.7))),
+                    Text('há 3 h', style: TextStyle(color: Colors.white.withOpacity(0.7))),
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          const Text('Clipe novo',
-              style: TextStyle(color: Colors.white, fontSize: 16)),
+          const Text('Clipe novo', style: TextStyle(color: Colors.white, fontSize: 16)),
           const SizedBox(height: 12),
           const _MediaTile.big(showPlay: true),
         ],
@@ -353,19 +345,23 @@ class _PostDivider extends StatelessWidget {
   }
 }
 
+/* =================== COMPONENTES REUTILIZÁVEIS =================== */
 
 class _Avatar extends StatelessWidget {
   const _Avatar();
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(22),
-      child: Image.asset(
-        'assets/images/muvelogo.png',
-        height: 44,
-        width: 44,
-        fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, Routes.profile),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(22),
+        child: Image.asset(
+          'assets/images/muvelogo.png',
+          height: 44,
+          width: 44,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
@@ -386,11 +382,7 @@ class _MuveBadge extends StatelessWidget {
       alignment: Alignment.center,
       child: const Text(
         'M',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
-        ),
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
       ),
     );
   }
@@ -411,7 +403,7 @@ class _ComposerIcon extends StatelessWidget {
 
 class _PillButton extends StatelessWidget {
   final String label;
-  final VoidCallback? onTap;
+  final VoidCallback? onTap; // null = desabilitado
   final bool enabled;
 
   const _PillButton({
@@ -456,8 +448,7 @@ class _AudioPlayerMock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final labelStyle =
-    TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 12);
+    final labelStyle = TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 12);
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -469,16 +460,11 @@ class _AudioPlayerMock extends StatelessWidget {
         children: [
           Row(
             children: [
-              // play/pause (mock)
               Container(
                 height: 40,
                 width: 40,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white24,
-                ),
-                child: Icon(Icons.play_arrow,
-                    color: Colors.white.withOpacity(0.95)),
+                decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white24),
+                child: Icon(Icons.play_arrow, color: Colors.white.withOpacity(0.95)),
               ),
               const SizedBox(width: 12),
               const Expanded(child: _WaveformBars(height: 40)),
@@ -496,8 +482,7 @@ class _AudioPlayerMock extends StatelessWidget {
                     value: 0.4,
                     minHeight: 6,
                     backgroundColor: Colors.white.withOpacity(0.15),
-                    valueColor:
-                    AlwaysStoppedAnimation<Color>(Colors.white.withOpacity(0.9)),
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white.withOpacity(0.9)),
                   ),
                 ),
               ),
@@ -517,10 +502,7 @@ class _WaveformBars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bars = [
-      8, 16, 24, 34, 50, 36, 26, 18, 12, 20, 30, 44, 54, 44, 30, 20, 12, 18, 26,
-      36, 50, 34, 24, 16, 8
-    ];
+    final bars = [8, 16, 24, 34, 50, 36, 26, 18, 12, 20, 30, 44, 54, 44, 30, 20, 12, 18, 26, 36, 50, 34, 24, 16, 8];
     return SizedBox(
       height: height,
       child: Row(
@@ -565,9 +547,7 @@ class _MediaTile extends StatelessWidget {
             Image.asset('assets/images/muvelogo.png', fit: BoxFit.cover),
             if (showPlay)
               Center(
-                child: Icon(Icons.play_circle_fill,
-                    color: Colors.white.withOpacity(0.95),
-                    size: big ? 56 : 36),
+                child: Icon(Icons.play_circle_fill, color: Colors.white.withOpacity(0.95), size: big ? 56 : 36),
               ),
           ],
         ),
@@ -575,6 +555,8 @@ class _MediaTile extends StatelessWidget {
     );
   }
 }
+
+/* =================== BOTTOM BAR =================== */
 
 class _MuveFab extends StatelessWidget {
   const _MuveFab({super.key});
@@ -597,26 +579,49 @@ class _MuveFab extends StatelessWidget {
   }
 }
 
+/// Bottom bar com SafeArea interno e altura folgada
 class _BottomBar extends StatelessWidget {
-  const _BottomBar();
+  final VoidCallback? onTapEvents;
+  final VoidCallback? onTapSearch;
+  final VoidCallback? onTapMessages;
+  final String? onTapProfileRoute;
+
+  const _BottomBar({
+    super.key,
+    this.onTapEvents,
+    this.onTapSearch,
+    this.onTapMessages,
+    this.onTapProfileRoute,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-      shape: const CircularNotchedRectangle(),
-      color: const Color(0xFF2D124E).withOpacity(0.92),
-      notchMargin: 8,
-      child: SizedBox(
-        height: 76,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
-            _NavItem(icon: Icons.event, label: 'Eventos'),
-            _NavItem(icon: Icons.search, label: 'Buscar'),
-            SizedBox(width: 56),
-            _NavItem(icon: Icons.chat_bubble_outline, label: 'Messages'),
-            _NavItem(icon: Icons.person_outline, label: 'Perfil'),
-          ],
+    return SafeArea( // <- garante folga do inset inferior
+      top: false,
+      child: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        color: const Color(0xFF2D124E).withOpacity(0.92),
+        notchMargin: 8,
+        child: SizedBox(
+          height: 80, // altura maior evita overflow
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _NavItem(icon: Icons.event, label: 'Eventos', onTap: onTapEvents),
+              _NavItem(icon: Icons.search, label: 'Buscar', onTap: onTapSearch),
+              const SizedBox(width: 84), // gap para FAB central
+              _NavItem(icon: Icons.chat_bubble_outline, label: 'Messages', onTap: onTapMessages),
+              _NavItem(
+                icon: Icons.person_outline,
+                label: 'Perfil',
+                onTap: () {
+                  if (onTapProfileRoute != null) {
+                    Navigator.pushNamed(context, onTapProfileRoute!);
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -626,17 +631,34 @@ class _BottomBar extends StatelessWidget {
 class _NavItem extends StatelessWidget {
   final IconData icon;
   final String label;
-  const _NavItem({required this.icon, required this.label});
+  final VoidCallback? onTap;
+
+  const _NavItem({
+    required this.icon,
+    required this.label,
+    this.onTap,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: Colors.white.withOpacity(0.95)),
-        const SizedBox(height: 4),
-        Text(label, style: TextStyle(color: Colors.white.withOpacity(0.95))),
-      ],
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), // padding menor
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: Colors.white.withOpacity(0.95), size: 22),
+            const SizedBox(height: 3),
+            Text(
+              label,
+              style: TextStyle(color: Colors.white.withOpacity(0.95), fontSize: 12),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
