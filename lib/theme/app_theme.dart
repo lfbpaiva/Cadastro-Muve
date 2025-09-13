@@ -11,11 +11,7 @@ class AppTheme {
   static LinearGradient mainGradient = const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: [
-      Color(0xFF4A148C),
-      Color(0xFF6A1B9A),
-      Color(0xFFBA68C8),
-    ],
+    colors: [Color(0xFF4A148C), Color(0xFF6A1B9A), Color(0xFFBA68C8)],
   );
 
   static TextStyle titleTextStyle = const TextStyle(
@@ -31,9 +27,7 @@ class AppTheme {
 
   static ButtonStyle mainButtonStyle = ElevatedButton.styleFrom(
     backgroundColor: purpleDark,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(50),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
     padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
     textStyle: const TextStyle(
       color: Colors.white,
@@ -42,7 +36,10 @@ class AppTheme {
     ),
   );
 
-  static InputDecoration inputDecoration({required String hint, IconData? icon}) {
+  static InputDecoration inputDecoration({
+    required String hint,
+    IconData? icon,
+  }) {
     return InputDecoration(
       hintText: hint,
       hintStyle: const TextStyle(color: Colors.grey),

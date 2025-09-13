@@ -130,7 +130,10 @@ class RegisterUserScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 1800),
                           child: MaterialButton(
                             onPressed: () {
-                              Navigator.pushReplacementNamed(context, Routes.login);
+                              Navigator.pushReplacementNamed(
+                                context,
+                                Routes.login,
+                              );
                             },
                             height: 45,
                             color: Colors.purple[900],

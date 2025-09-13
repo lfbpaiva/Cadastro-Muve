@@ -35,10 +35,7 @@ class _RegisterChoiceScreenState extends State<RegisterChoiceScreen> {
 
               FadeInUp(
                 duration: const Duration(milliseconds: 1000),
-                child: Image.asset(
-                  'assets/images/muvelogo.png',
-                  height: 280,
-                ),
+                child: Image.asset('assets/images/muvelogo.png', height: 280),
               ),
 
               const SizedBox(height: 25),
@@ -66,7 +63,7 @@ class _RegisterChoiceScreenState extends State<RegisterChoiceScreen> {
                   icon: Icons.mic,
                   title: 'Sou Usuário / Artista',
                   description:
-                  'Encontre eventos, bandas e personalize seu perfil para divulgar seu trabalho musical.',
+                      'Encontre eventos, bandas e personalize seu perfil para divulgar seu trabalho musical.',
                   route: Routes.registerUser,
                   pressed: _pressedUsuario,
                   onPressedChange: (value) {
@@ -82,7 +79,7 @@ class _RegisterChoiceScreenState extends State<RegisterChoiceScreen> {
                   icon: Icons.calendar_month,
                   title: 'Sou Contratante',
                   description:
-                  'Cadastre-se com CPF ou CNPJ para contratar músicos e bandas para seus eventos.',
+                      'Cadastre-se com CPF ou CNPJ para contratar músicos e bandas para seus eventos.',
                   route: Routes.registerClient,
                   pressed: _pressedContratante,
                   onPressedChange: (value) {
@@ -131,9 +128,7 @@ class _RegisterChoiceScreenState extends State<RegisterChoiceScreen> {
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.15),
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.3),
-                    ),
+                    border: Border.all(color: Colors.white.withOpacity(0.3)),
                     gradient: LinearGradient(
                       colors: [
                         Colors.purple.shade700.withOpacity(0.25),
