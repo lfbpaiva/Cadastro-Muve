@@ -24,6 +24,8 @@ flutter:
 
   assets:
     - assets/images/muvelogo.png
+    - assets/images/images_events_screen/
+
     # Você pode adicionar outras imagens depois
     # - assets/images/outra_imagem.png
 

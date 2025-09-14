@@ -19,21 +19,29 @@ class HomeScreen extends StatelessWidget {
           topLeft: Radius.circular(28),
           topRight: Radius.circular(28),
         ),
-        child: const _BottomBar(
-          // Conecte quando tiver as telas
-          onTapEvents: null,
+        child: _BottomBar(
+          onTapEvents:
+              () => Navigator.pushNamed(
+                context,
+                Routes.events,
+              ), // <-- IMPLEMENTAÇÃO CORRIGIDA
           onTapSearch: null,
           onTapMessages: null,
-          // Perfil já navega
           onTapProfileRoute: Routes.profile,
         ),
       ),
+
       body: Container(
         decoration: BoxDecoration(gradient: gradient),
         child: SafeArea(
           bottom: false,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 160), // +folga p/ FAB/bar
+            padding: const EdgeInsets.fromLTRB(
+              16,
+              12,
+              16,
+              160,
+            ), // +folga p/ FAB/bar
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
@@ -78,7 +86,10 @@ class _TabsHeader extends StatelessWidget {
               alignment: Alignment.center,
               child: const Text(
                 'Para você',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
@@ -137,7 +148,10 @@ class _ComposerCardState extends State<_ComposerCard> {
             children: [
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.08),
                     borderRadius: BorderRadius.circular(16),
@@ -159,13 +173,20 @@ class _ComposerCardState extends State<_ComposerCard> {
                       _controller.clear();
                       setState(() {});
                     },
-                    buildCounter: (context, {required int currentLength, required bool isFocused, int? maxLength}) =>
-                    const SizedBox.shrink(),
+                    buildCounter:
+                        (
+                          context, {
+                          required int currentLength,
+                          required bool isFocused,
+                          int? maxLength,
+                        }) => const SizedBox.shrink(),
                     style: TextStyle(color: Colors.white.withOpacity(0.95)),
                     decoration: InputDecoration(
                       isDense: true,
                       hintText: 'O que está acontecendo?',
-                      hintStyle: TextStyle(color: Colors.white.withOpacity(0.85)),
+                      hintStyle: TextStyle(
+                        color: Colors.white.withOpacity(0.85),
+                      ),
                       border: InputBorder.none,
                     ),
                     onChanged: (_) => setState(() {}),
@@ -176,16 +197,17 @@ class _ComposerCardState extends State<_ComposerCard> {
               _PillButton(
                 label: 'Postar',
                 enabled: canPost,
-                onTap: canPost
-                    ? () {
-                  final text = _controller.text.trim();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Post enviado: $text')),
-                  );
-                  _controller.clear();
-                  setState(() {});
-                }
-                    : null,
+                onTap:
+                    canPost
+                        ? () {
+                          final text = _controller.text.trim();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Post enviado: $text')),
+                          );
+                          _controller.clear();
+                          setState(() {});
+                        }
+                        : null,
               ),
             ],
           ),
@@ -240,39 +262,71 @@ class _PostCardPatrocinado extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Text('musico123',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                        const Text(
+                          'musico123',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                         const SizedBox(width: 6),
                         const _MuveBadge(),
                         const Spacer(),
-                        Icon(Icons.more_horiz, color: Colors.white.withOpacity(0.85)),
+                        Icon(
+                          Icons.more_horiz,
+                          color: Colors.white.withOpacity(0.85),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 2),
-                    Text('há 2 h', style: TextStyle(color: Colors.white.withOpacity(0.7))),
+                    Text(
+                      'há 2 h',
+                      style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                    ),
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          const Text('Lançamento do meu single!',
-              style: TextStyle(color: Colors.white, fontSize: 16)),
+          const Text(
+            'Lançamento do meu single!',
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
           const SizedBox(height: 8),
-          Text('Patrocinado',
-              style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 12)),
+          Text(
+            'Patrocinado',
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.7),
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 10),
           const _AudioPlayerMock(),
           const SizedBox(height: 8),
           Row(
             children: [
-              Icon(Icons.thumb_up_alt_outlined, color: Colors.white.withOpacity(0.9), size: 20),
+              Icon(
+                Icons.thumb_up_alt_outlined,
+                color: Colors.white.withOpacity(0.9),
+                size: 20,
+              ),
               const SizedBox(width: 6),
-              Text('Curtir', style: TextStyle(color: Colors.white.withOpacity(0.9))),
+              Text(
+                'Curtir',
+                style: TextStyle(color: Colors.white.withOpacity(0.9)),
+              ),
               const SizedBox(width: 18),
-              Icon(Icons.mode_comment_outlined, color: Colors.white.withOpacity(0.9), size: 20),
+              Icon(
+                Icons.mode_comment_outlined,
+                color: Colors.white.withOpacity(0.9),
+                size: 20,
+              ),
               const SizedBox(width: 6),
-              Text('Comentar', style: TextStyle(color: Colors.white.withOpacity(0.9))),
+              Text(
+                'Comentar',
+                style: TextStyle(color: Colors.white.withOpacity(0.9)),
+              ),
             ],
           ),
         ],
@@ -307,23 +361,37 @@ class _PostCardBanda extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Text('bandaXYZ',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                        const Text(
+                          'bandaXYZ',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                         const SizedBox(width: 6),
                         const _MuveBadge(),
                         const Spacer(),
-                        Icon(Icons.more_horiz, color: Colors.white.withOpacity(0.85)),
+                        Icon(
+                          Icons.more_horiz,
+                          color: Colors.white.withOpacity(0.85),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 2),
-                    Text('há 3 h', style: TextStyle(color: Colors.white.withOpacity(0.7))),
+                    Text(
+                      'há 3 h',
+                      style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                    ),
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          const Text('Clipe novo', style: TextStyle(color: Colors.white, fontSize: 16)),
+          const Text(
+            'Clipe novo',
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
           const SizedBox(height: 12),
           const _MediaTile.big(showPlay: true),
         ],
@@ -382,7 +450,11 @@ class _MuveBadge extends StatelessWidget {
       alignment: Alignment.center,
       child: const Text(
         'M',
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
       ),
     );
   }
@@ -448,7 +520,10 @@ class _AudioPlayerMock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final labelStyle = TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 12);
+    final labelStyle = TextStyle(
+      color: Colors.white.withOpacity(0.9),
+      fontSize: 12,
+    );
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -463,8 +538,14 @@ class _AudioPlayerMock extends StatelessWidget {
               Container(
                 height: 40,
                 width: 40,
-                decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white24),
-                child: Icon(Icons.play_arrow, color: Colors.white.withOpacity(0.95)),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white24,
+                ),
+                child: Icon(
+                  Icons.play_arrow,
+                  color: Colors.white.withOpacity(0.95),
+                ),
               ),
               const SizedBox(width: 12),
               const Expanded(child: _WaveformBars(height: 40)),
@@ -482,7 +563,9 @@ class _AudioPlayerMock extends StatelessWidget {
                     value: 0.4,
                     minHeight: 6,
                     backgroundColor: Colors.white.withOpacity(0.15),
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white.withOpacity(0.9)),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Colors.white.withOpacity(0.9),
+                    ),
                   ),
                 ),
               ),
@@ -502,27 +585,54 @@ class _WaveformBars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bars = [8, 16, 24, 34, 50, 36, 26, 18, 12, 20, 30, 44, 54, 44, 30, 20, 12, 18, 26, 36, 50, 34, 24, 16, 8];
+    final bars = [
+      8,
+      16,
+      24,
+      34,
+      50,
+      36,
+      26,
+      18,
+      12,
+      20,
+      30,
+      44,
+      54,
+      44,
+      30,
+      20,
+      12,
+      18,
+      26,
+      36,
+      50,
+      34,
+      24,
+      16,
+      8,
+    ];
     return SizedBox(
       height: height,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: bars
-            .map(
-              (h) => Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2),
-              child: Container(
-                height: (h.toDouble() * (height / 56)),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-            ),
-          ),
-        )
-            .toList(),
+        children:
+            bars
+                .map(
+                  (h) => Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      child: Container(
+                        height: (h.toDouble() * (height / 56)),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.9),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
       ),
     );
   }
@@ -547,7 +657,11 @@ class _MediaTile extends StatelessWidget {
             Image.asset('assets/images/muvelogo.png', fit: BoxFit.cover),
             if (showPlay)
               Center(
-                child: Icon(Icons.play_circle_fill, color: Colors.white.withOpacity(0.95), size: big ? 56 : 36),
+                child: Icon(
+                  Icons.play_circle_fill,
+                  color: Colors.white.withOpacity(0.95),
+                  size: big ? 56 : 36,
+                ),
               ),
           ],
         ),
@@ -596,7 +710,8 @@ class _BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea( // <- garante folga do inset inferior
+    return SafeArea(
+      // <- garante folga do inset inferior
       top: false,
       child: BottomAppBar(
         shape: const CircularNotchedRectangle(),
@@ -610,7 +725,11 @@ class _BottomBar extends StatelessWidget {
               _NavItem(icon: Icons.event, label: 'Eventos', onTap: onTapEvents),
               _NavItem(icon: Icons.search, label: 'Buscar', onTap: onTapSearch),
               const SizedBox(width: 84), // gap para FAB central
-              _NavItem(icon: Icons.chat_bubble_outline, label: 'Messages', onTap: onTapMessages),
+              _NavItem(
+                icon: Icons.chat_bubble_outline,
+                label: 'Messages',
+                onTap: onTapMessages,
+              ),
               _NavItem(
                 icon: Icons.person_outline,
                 label: 'Perfil',
@@ -646,7 +765,10 @@ class _NavItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), // padding menor
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8,
+          vertical: 4,
+        ), // padding menor
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -654,7 +776,10 @@ class _NavItem extends StatelessWidget {
             const SizedBox(height: 3),
             Text(
               label,
-              style: TextStyle(color: Colors.white.withOpacity(0.95), fontSize: 12),
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.95),
+                fontSize: 12,
+              ),
             ),
           ],
         ),

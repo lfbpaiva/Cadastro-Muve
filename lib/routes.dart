@@ -6,6 +6,8 @@ import 'screens/register_user_screen.dart';
 import 'screens/register_client_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/profile_screen.dart';
+import 'screens/events/events_screen.dart';
+import 'screens/events/sertanejo_screen.dart';
 
 class Routes {
   static const splash = '/';
@@ -14,7 +16,9 @@ class Routes {
   static const registerUser = '/register_user';
   static const registerClient = '/register_client';
   static const home = '/home';
-  static const profile = '/profile'; // <-- nova rota
+  static const profile = '/profile';
+  static const events = '/events';
+  static const sertanejo = '/sertanejo'; // nova rota
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -24,7 +28,9 @@ class Routes {
       registerUser: (context) => const RegisterUserScreen(),
       registerClient: (context) => const RegisterClientScreen(),
       home: (context) => const HomeScreen(),
-      profile: (context) => const ProfileScreen(), // <-- mapeamento do Perfil
+      profile: (context) => const ProfileScreen(),
+      events: (context) => const EventsScreen(),
+      sertanejo: (context) => const SertanejoScreen(),
     };
   }
 }

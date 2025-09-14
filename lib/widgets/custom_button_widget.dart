@@ -22,7 +22,8 @@ class CustomButtonWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Container(
         decoration: BoxDecoration(
-          gradient: gradient ??
+          gradient:
+              gradient ??
               const LinearGradient(
                 colors: [Color(0xFF4A148C), Color(0xFF6A1B9A)],
               ),
@@ -31,7 +32,10 @@ class CustomButtonWidget extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

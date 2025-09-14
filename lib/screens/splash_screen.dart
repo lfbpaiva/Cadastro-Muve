@@ -38,10 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
             builder: (context, value, child) {
               return Transform.scale(scale: value, child: child);
             },
-            child: Image.asset(
-              'assets/images/muvelogo.png',
-              height: 180,
-            ),
+            child: Image.asset('assets/images/muvelogo.png', height: 180),
           ),
         ),
       ),
