@@ -22,7 +22,6 @@ class EventsScreen extends StatelessWidget {
         ),
         child: _BottomBar(
           onTapEvents: () {
-            // Recarrega a tela atual.
             Navigator.pushReplacementNamed(context, Routes.events);
           },
           onTapSearch: null,
@@ -32,23 +31,19 @@ class EventsScreen extends StatelessWidget {
       ),
       body: Container(
         decoration: BoxDecoration(gradient: gradient),
-        child: const SafeArea(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height,
+        ),
+        child: SafeArea(
           bottom: false,
           child: SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(
-              16,
-              12,
-              16,
-              160,
-            ),
+            padding: const EdgeInsets.fromLTRB(16, 22, 16, 160),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 _EventsHeader(),
-                SizedBox(height: 12),
-                _EventCard(),
-                SizedBox(height: 12),
-                _EventCard(),
+                SizedBox(height: 40), // mais distância entre título e carrossel
+                _EventsCarousel(), // carrossel com células fixas
               ],
             ),
           ),
@@ -58,7 +53,7 @@ class EventsScreen extends StatelessWidget {
   }
 }
 
-/* =================== EVENTOS =================== */
+/* =================== HEADER =================== */
 
 class _EventsHeader extends StatelessWidget {
   const _EventsHeader();
@@ -66,63 +61,100 @@ class _EventsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Text(
-        'Eventos',
-        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+      padding: const EdgeInsets.only(top: 10.0),
+      child: Center(
+        child: Text(
+          'Shows em destaque',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
       ),
     );
   }
 }
 
-class _EventCard extends StatelessWidget {
-  const _EventCard();
+/* =================== CARROSSEL =================== */
+
+class _EventsCarousel extends StatelessWidget {
+  const _EventsCarousel();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.10),
-        borderRadius: BorderRadius.circular(18),
-      ),
+    final events = [
+      {
+        'title': 'Imagine Dragons',
+        'image': 'assets/images/images_events_screen/imagine-dragons_image.jpg'
+      },
+      {
+        'title': 'Linkin Park',
+        'image': 'assets/images/images_events_screen/linkin-park_image.png'
+      },
+      {
+        'title': 'Marshmallow',
+        'image': 'assets/images/images_events_screen/marshmallow_image.jpg'
+      },
+      {
+        'title': 'Orchestra',
+        'image': 'assets/images/images_events_screen/orchestra_image.jpg'
+      },
+      {
+        'title': 'Péricles',
+        'image': 'assets/images/images_events_screen/pericles_image.jpg'
+      },
+    ];
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const _Avatar(),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Show da Banda Muve',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: events.map((event) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Container(
+              width: 130, // largura fixa do cartão
+              height: 170, // altura fixa do cartão
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.pinkAccent.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 90,
+                    height: 90,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.10),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ClipOval(
+                      child: Image.asset(
+                        event['image']!,
+                        fit: BoxFit.cover,
                       ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Local: Palco Central',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.white.withOpacity(0.8),
-                      ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Data: 15 de Outubro, 21:00',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.white.withOpacity(0.8),
-                      ),
-                ),
-              ],
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    event['title']!,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.95),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          );
+        }).toList(),
       ),
     );
   }
@@ -181,7 +213,7 @@ class _BottomBar extends StatelessWidget {
             children: [
               _NavItem(icon: Icons.event, label: 'Eventos', onTap: onTapEvents),
               _NavItem(icon: Icons.search, label: 'Buscar', onTap: onTapSearch),
-              const SizedBox(width: 84), // gap para FAB central
+              const SizedBox(width: 84),
               _NavItem(
                 icon: Icons.chat_bubble_outline,
                 label: 'Messages',
@@ -222,10 +254,7 @@ class _NavItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 4,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
