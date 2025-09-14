@@ -67,9 +67,9 @@ class _EventsHeader extends StatelessWidget {
           'Shows em destaque',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -86,23 +86,23 @@ class _EventsCarousel extends StatelessWidget {
     final events = [
       {
         'title': 'Imagine Dragons',
-        'image': 'assets/images/images_events_screen/imagine-dragons_image.jpg'
+        'image': 'assets/images/images_events_screen/imagine-dragons_image.jpg',
       },
       {
         'title': 'Linkin Park',
-        'image': 'assets/images/images_events_screen/linkin-park_image.png'
+        'image': 'assets/images/images_events_screen/linkin-park_image.png',
       },
       {
         'title': 'Marshmallow',
-        'image': 'assets/images/images_events_screen/marshmallow_image.jpg'
+        'image': 'assets/images/images_events_screen/marshmallow_image.jpg',
       },
       {
         'title': 'Orchestra',
-        'image': 'assets/images/images_events_screen/orchestra_image.jpg'
+        'image': 'assets/images/images_events_screen/orchestra_image.jpg',
       },
       {
         'title': 'Péricles',
-        'image': 'assets/images/images_events_screen/pericles_image.jpg'
+        'image': 'assets/images/images_events_screen/pericles_image.jpg',
       },
     ];
 
@@ -110,51 +110,52 @@ class _EventsCarousel extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: events.map((event) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Container(
-              width: 130, // largura fixa do cartão
-              height: 170, // altura fixa do cartão
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.pinkAccent.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 90,
-                    height: 90,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.10),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        event['image']!,
-                        fit: BoxFit.cover,
+        children:
+            events.map((event) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Container(
+                  width: 130, // largura fixa do cartão
+                  height: 170, // altura fixa do cartão
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.pinkAccent.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 90,
+                        height: 90,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.10),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            event['image']!,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 8),
+                      Text(
+                        event['title']!,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.95),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    event['title']!,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.95),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }).toList(),
+                ),
+              );
+            }).toList(),
       ),
     );
   }

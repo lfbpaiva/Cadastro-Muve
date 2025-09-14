@@ -20,10 +20,11 @@ class HomeScreen extends StatelessWidget {
           topRight: Radius.circular(28),
         ),
         child: _BottomBar(
-          onTapEvents: () => Navigator.pushNamed(
-            context,
-            Routes.events,
-          ), // <-- IMPLEMENTAÇÃO CORRIGIDA
+          onTapEvents:
+              () => Navigator.pushNamed(
+                context,
+                Routes.events,
+              ), // <-- IMPLEMENTAÇÃO CORRIGIDA
           onTapSearch: null,
           onTapMessages: null,
           onTapProfileRoute: Routes.profile,

@@ -48,9 +48,10 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
                     child: const Text(
                       "Cadastro de Contratante",
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -128,15 +129,25 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
                             value: tipoPessoa,
                             isExpanded: true,
                             underline: const SizedBox(),
-                            icon: const Icon(Icons.arrow_drop_down, color: Colors.grey),
-                            items: <String>["Pessoa Física", "Pessoa Jurídica"]
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value,
-                                    style: const TextStyle(color: Colors.black)),
-                              );
-                            }).toList(),
+                            icon: const Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.grey,
+                            ),
+                            items:
+                                <String>[
+                                  "Pessoa Física",
+                                  "Pessoa Jurídica",
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
                             onChanged: (String? newValue) {
                               setState(() {
                                 tipoPessoa = newValue!;
@@ -177,7 +188,10 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
                         duration: const Duration(milliseconds: 1900),
                         child: MaterialButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context, Routes.login);
+                            Navigator.pushReplacementNamed(
+                              context,
+                              Routes.login,
+                            );
                           },
                           height: 45,
                           color: Colors.purple[900],
@@ -188,8 +202,9 @@ class _RegisterClientScreenState extends State<RegisterClientScreen> {
                             child: Text(
                               "Registrar",
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
