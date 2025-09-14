@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:muve/theme/app_theme.dart' as theme;
-import '../routes.dart';
+import '../../routes.dart';
+import 'package:muve/screens/events/card_events.dart';
+import 'package:muve/screens/events/events_data.dart';
 
 class EventsScreen extends StatelessWidget {
   const EventsScreen({super.key});
@@ -42,8 +44,12 @@ class EventsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 _EventsHeader(),
-                SizedBox(height: 40), // mais distância entre título e carrossel
+                SizedBox(height: 40),
                 _EventsCarousel(), // carrossel com células fixas
+                SizedBox(height: 40),
+                _GenresHeader(),
+                SizedBox(height: 20),
+                _GenresGrid(), // grid com estilos musicais
               ],
             ),
           ),
@@ -83,80 +89,182 @@ class _EventsCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final events = [
-      {
-        'title': 'Imagine Dragons',
-        'image': 'assets/images/images_events_screen/imagine-dragons_image.jpg',
-      },
-      {
-        'title': 'Linkin Park',
-        'image': 'assets/images/images_events_screen/linkin-park_image.png',
-      },
-      {
-        'title': 'Marshmallow',
-        'image': 'assets/images/images_events_screen/marshmallow_image.jpg',
-      },
-      {
-        'title': 'Orchestra',
-        'image': 'assets/images/images_events_screen/orchestra_image.jpg',
-      },
-      {
-        'title': 'Péricles',
-        'image': 'assets/images/images_events_screen/pericles_image.jpg',
-      },
-    ];
-
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children:
-            events.map((event) {
+            eventsData.map((event) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Container(
-                  width: 130, // largura fixa do cartão
-                  height: 170, // altura fixa do cartão
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.pinkAccent.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 90,
-                        height: 90,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.10),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: ClipOval(
-                          child: Image.asset(
-                            event['image']!,
-                            fit: BoxFit.cover,
+                child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder:
+                          (ctx) => CardEvents(
+                            title: event['title']!,
+                            image: event['image']!,
+                            description: event['description']!,
+                            dateTime: event['dateTime']!,
+                            local: event['local']!,
+                            normalPrice: event['normal']!,
+                            vipPrice: event['vip']!,
+                            camarotePrice: event['camarote']!,
+                          ),
+                    );
+                  },
+                  child: Container(
+                    width: 130,
+                    height: 170,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.pinkAccent.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.10),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: ClipOval(
+                            child: Image.asset(
+                              event['image']!,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        event['title']!,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.95),
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                        const SizedBox(height: 8),
+                        Text(
+                          event['title']!,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.95),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );
             }).toList(),
       ),
+    );
+  }
+}
+
+/* =================== GENRES HEADER =================== */
+
+class _GenresHeader extends StatelessWidget {
+  const _GenresHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Ache um Show que combine com você',
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+/* =================== GENRES GRID =================== */
+
+class _GenresGrid extends StatelessWidget {
+  const _GenresGrid();
+
+  @override
+  Widget build(BuildContext context) {
+    final genres = [
+      {
+        'title': 'Sertanejo',
+        'image': 'assets/images/images_events_screen/sertanejo_image.jpeg',
+        'route': Routes.sertanejo,
+      },
+      {
+        'title': 'Rock',
+        'image': 'assets/images/images_events_screen/rock_image.jpg',
+        'route': null, // por enquanto
+      },
+      {
+        'title': 'Pagode',
+        'image': 'assets/images/images_events_screen/pagode_image.jpeg',
+        'route': null,
+      },
+      {
+        'title': 'Eletrônica',
+        'image': 'assets/images/images_events_screen/eletronica_image.jpg',
+        'route': null,
+      },
+      {
+        'title': 'MPB',
+        'image': 'assets/images/images_events_screen/mpb_image.jpg',
+        'route': null,
+      },
+      {
+        'title': 'Indie',
+        'image': 'assets/images/images_events_screen/indie_image.jpg',
+        'route': null,
+      },
+    ];
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        childAspectRatio: 3 / 2,
+      ),
+      itemCount: genres.length,
+      itemBuilder: (context, index) {
+        final genre = genres[index];
+        return GestureDetector(
+          onTap: () {
+            if (genre['route'] != null) {
+              Navigator.pushNamed(context, genre['route']!);
+            }
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.asset(genre['image']!, fit: BoxFit.cover),
+                Container(color: Colors.black.withOpacity(0.4)),
+                Center(
+                  child: Text(
+                    genre['title']!,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -172,7 +280,9 @@ class _MuveFab extends StatelessWidget {
       height: 66,
       width: 66,
       child: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushReplacementNamed(context, Routes.home);
+        },
         elevation: 4,
         backgroundColor: Colors.white.withOpacity(0.15),
         shape: const CircleBorder(),
@@ -184,7 +294,6 @@ class _MuveFab extends StatelessWidget {
   }
 }
 
-/// Bottom bar com SafeArea interno e altura folgada
 class _BottomBar extends StatelessWidget {
   final VoidCallback? onTapEvents;
   final VoidCallback? onTapSearch;
