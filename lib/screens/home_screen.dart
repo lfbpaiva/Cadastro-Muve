@@ -19,12 +19,16 @@ class HomeScreen extends StatelessWidget {
           topLeft: Radius.circular(28),
           topRight: Radius.circular(28),
         ),
-        child: const _BottomBar(
-          // Conecte quando tiver as telas
-          onTapEvents: null,
-          onTapSearch: null,
-          onTapMessages: null,
-          // Perfil já navega
+        child: _BottomBar(
+          onTapEvents: () {
+            // aqui você pode ir para a aba de eventos se tiver
+          },
+          onTapSearch: () {
+            Navigator.pushNamed(context, Routes.searchEvents);
+          },
+          onTapMessages: () {
+            // sua rota de mensagens
+          },
           onTapProfileRoute: Routes.profile,
         ),
       ),
