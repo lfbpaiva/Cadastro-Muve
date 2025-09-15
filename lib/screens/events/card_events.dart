@@ -140,7 +140,10 @@ class CardEvents extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // ação para garantir ingresso
+                      Navigator.pushNamed(
+                        context,
+                        '/error',
+                      ); // rota para ErrorScreen
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

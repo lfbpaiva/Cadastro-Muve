@@ -1,5 +1,5 @@
-// lib/screens/events/sertanejo_screen.dart
 import 'package:flutter/material.dart';
+import 'package:muve/screens/events/card_events.dart';
 import 'package:muve/theme/app_theme.dart' as theme;
 import '../../routes.dart';
 
@@ -82,13 +82,233 @@ class _SertanejoBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Text(
-        'Encontre o modão que mais combina com você! Aqui você fica por dentro das melhores atrações de Sertanejo pelo Brasil!',
-        textAlign: TextAlign.justify,
-        style: const TextStyle(color: Colors.white, fontSize: 16),
-      ),
+    final top10Shows = [
+      {
+        'title': 'Gusttavo Lima – Buteco 2024',
+        'image': 'assets/images/images_events_screen/gusttavo-lima_image.jpg',
+        'description': 'O maior Buteco do Brasil!',
+        'dateTime': '10/10/2024 - 21h',
+        'local': 'Curitiba/PR',
+        'normalPrice': 'R\$ 100,00',
+        'vipPrice': 'R\$ 200,00',
+        'camarotePrice': 'R\$ 400,00',
+      },
+      {
+        'title': 'Zé Neto & Cristiano – Ao Vivo',
+        'image': 'assets/images/images_events_screen/neto-cristiano_image.jpg',
+        'description': 'Grandes sucessos da dupla!',
+        'dateTime': '15/10/2024 - 20h',
+        'local': 'Guarulhos/SP',
+        'normalPrice': 'R\$ 70,00',
+        'vipPrice': 'R\$ 150,00',
+        'camarotePrice': 'R\$ 300,00',
+      },
+      // …adicione mais 8 shows aqui
+    ];
+
+    final showsProximos = [
+      {
+        'title': 'Jorge & Mateus – Turnê 2024',
+        'image': 'assets/images/images_events_screen/jorge-mateus_image.jpg',
+        'description': 'O melhor do sertanejo universitário!',
+        'dateTime': '24/09/2024 - 21h',
+        'local': 'Parque Internacional de Exposições de Maringá - Maringá-PR',
+        'normalPrice': 'R\$ 80,00',
+        'vipPrice': 'R\$ 150,00',
+        'camarotePrice': 'R\$ 300,00',
+      },
+      {
+        'title': 'Maiara & Maraisa – Ao Vivo',
+        'image': 'assets/images/images_events_screen/maiara-maraisa_image.jpg',
+        'description': 'Show imperdível das irmãs!',
+        'dateTime': '01/10/2024 - 20h',
+        'local': 'Expovel - Cascavel/PR',
+        'normalPrice': 'R\$ 60,00',
+        'vipPrice': 'R\$ 120,00',
+        'camarotePrice': 'R\$ 250,00',
+      },
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text(
+            'Encontre o modão que mais combina com você! Aqui você fica por dentro das melhores atrações de Sertanejo pelo Brasil!',
+            textAlign: TextAlign.justify,
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
+        ),
+        const SizedBox(height: 24),
+        // ======== Top 10 Shows Sertanejos ========
+        Center(
+          child: Text(
+            'Top 10 Shows Sertanejos',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 150,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: top10Shows.length,
+            itemBuilder: (context, index) {
+              final show = top10Shows[index];
+              return GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder:
+                        (ctx) => CardEvents(
+                          title: show['title']!,
+                          image: show['image']!,
+                          description: show['description']!,
+                          dateTime: show['dateTime']!,
+                          local: show['local']!,
+                          normalPrice: show['normalPrice']!,
+                          vipPrice: show['vipPrice']!,
+                          camarotePrice: show['camarotePrice']!,
+                        ),
+                  );
+                },
+                child: Container(
+                  width: 120,
+                  margin: const EdgeInsets.only(right: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12),
+                        ),
+                        child: Image.asset(
+                          show['image']!,
+                          width: 120,
+                          height: 90,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          show['title']!,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 24),
+        // ======== Lista dos Shows próximos ========
+        Center(
+          child: Text(
+            'Shows Sertanejos próximos de você',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        for (var show in showsProximos)
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder:
+                    (ctx) => CardEvents(
+                      title: show['title']!,
+                      image: show['image']!,
+                      description: show['description']!,
+                      dateTime: show['dateTime']!,
+                      local: show['local']!,
+                      normalPrice: show['normalPrice']!,
+                      vipPrice: show['vipPrice']!,
+                      camarotePrice: show['camarotePrice']!,
+                    ),
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      show['image']!,
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          show['title']!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          show['description']!,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.85),
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(Icons.chevron_right, color: Colors.white70),
+                ],
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

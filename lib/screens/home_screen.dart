@@ -20,11 +20,7 @@ class HomeScreen extends StatelessWidget {
           topRight: Radius.circular(28),
         ),
         child: _BottomBar(
-          onTapEvents:
-              () => Navigator.pushNamed(
-                context,
-                Routes.events,
-              ), // <-- IMPLEMENTAÇÃO CORRIGIDA
+          onTapEvents: () => Navigator.pushNamed(context, Routes.events),
           onTapSearch: null,
           onTapMessages: null,
           onTapProfileRoute: Routes.profile,
@@ -36,12 +32,7 @@ class HomeScreen extends StatelessWidget {
         child: SafeArea(
           bottom: false,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(
-              16,
-              12,
-              16,
-              160,
-            ), // +folga p/ FAB/bar
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 160),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
@@ -711,20 +702,19 @@ class _BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      // <- garante folga do inset inferior
       top: false,
       child: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         color: const Color(0xFF2D124E).withOpacity(0.92),
         notchMargin: 8,
         child: SizedBox(
-          height: 80, // altura maior evita overflow
+          height: 80,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _NavItem(icon: Icons.event, label: 'Eventos', onTap: onTapEvents),
               _NavItem(icon: Icons.search, label: 'Buscar', onTap: onTapSearch),
-              const SizedBox(width: 84), // gap para FAB central
+              const SizedBox(width: 84),
               _NavItem(
                 icon: Icons.chat_bubble_outline,
                 label: 'Messages',
@@ -765,10 +755,7 @@ class _NavItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 4,
-        ), // padding menor
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

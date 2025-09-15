@@ -1,4 +1,6 @@
+// lib/routes.dart
 import 'package:flutter/material.dart';
+import 'package:muve/error_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_choice_screen.dart';
@@ -18,19 +20,19 @@ class Routes {
   static const home = '/home';
   static const profile = '/profile';
   static const events = '/events';
-  static const sertanejo = '/sertanejo'; // nova rota
+  static const sertanejo = '/sertanejo';
+  static const error = '/error'; // nova rota
 
-  static Map<String, WidgetBuilder> getRoutes() {
-    return {
-      splash: (context) => const SplashScreen(),
-      login: (context) => const LoginScreen(),
-      registerChoice: (context) => const RegisterChoiceScreen(),
-      registerUser: (context) => const RegisterUserScreen(),
-      registerClient: (context) => const RegisterClientScreen(),
-      home: (context) => const HomeScreen(),
-      profile: (context) => const ProfileScreen(),
-      events: (context) => const EventsScreen(),
-      sertanejo: (context) => const SertanejoScreen(),
-    };
-  }
+  static Map<String, WidgetBuilder> getRoutes() => {
+    splash: (context) => const SplashScreen(),
+    login: (context) => const LoginScreen(),
+    registerChoice: (context) => const RegisterChoiceScreen(),
+    registerUser: (context) => const RegisterUserScreen(),
+    registerClient: (context) => const RegisterClientScreen(),
+    home: (context) => const HomeScreen(),
+    profile: (context) => const ProfileScreen(),
+    events: (context) => const EventsScreen(),
+    sertanejo: (context) => const SertanejoScreen(),
+    error: (context) => const ErrorScreen(),
+  };
 }
