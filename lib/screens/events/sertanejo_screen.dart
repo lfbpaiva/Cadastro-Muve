@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muve/screens/events/card_events.dart';
+import 'package:muve/data/sertanejo_events_data.dart';
 import 'package:muve/theme/app_theme.dart' as theme;
 import '../../routes.dart';
 
@@ -82,52 +83,8 @@ class _SertanejoBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final top10Shows = [
-      {
-        'title': 'Gusttavo Lima – Buteco 2024',
-        'image': 'assets/images/images_events_screen/gusttavo-lima_image.jpg',
-        'description': 'O maior Buteco do Brasil!',
-        'dateTime': '10/10/2024 - 21h',
-        'local': 'Curitiba/PR',
-        'normalPrice': 'R\$ 100,00',
-        'vipPrice': 'R\$ 200,00',
-        'camarotePrice': 'R\$ 400,00',
-      },
-      {
-        'title': 'Zé Neto & Cristiano – Ao Vivo',
-        'image': 'assets/images/images_events_screen/neto-cristiano_image.jpg',
-        'description': 'Grandes sucessos da dupla!',
-        'dateTime': '15/10/2024 - 20h',
-        'local': 'Guarulhos/SP',
-        'normalPrice': 'R\$ 70,00',
-        'vipPrice': 'R\$ 150,00',
-        'camarotePrice': 'R\$ 300,00',
-      },
-      // …adicione mais 8 shows aqui
-    ];
-
-    final showsProximos = [
-      {
-        'title': 'Jorge & Mateus – Turnê 2024',
-        'image': 'assets/images/images_events_screen/jorge-mateus_image.jpg',
-        'description': 'O melhor do sertanejo universitário!',
-        'dateTime': '24/09/2024 - 21h',
-        'local': 'Parque Internacional de Exposições de Maringá - Maringá-PR',
-        'normalPrice': 'R\$ 80,00',
-        'vipPrice': 'R\$ 150,00',
-        'camarotePrice': 'R\$ 300,00',
-      },
-      {
-        'title': 'Maiara & Maraisa – Ao Vivo',
-        'image': 'assets/images/images_events_screen/maiara-maraisa_image.jpg',
-        'description': 'Show imperdível das irmãs!',
-        'dateTime': '01/10/2024 - 20h',
-        'local': 'Expovel - Cascavel/PR',
-        'normalPrice': 'R\$ 60,00',
-        'vipPrice': 'R\$ 120,00',
-        'camarotePrice': 'R\$ 250,00',
-      },
-    ];
+    final top10Shows = top10SertanejoShows;
+    final showsProximos = proximosSertanejoShows;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

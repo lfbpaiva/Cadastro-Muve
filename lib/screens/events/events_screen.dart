@@ -3,7 +3,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:muve/theme/app_theme.dart' as theme;
 import '../../routes.dart';
 import 'package:muve/screens/events/card_events.dart';
-import 'package:muve/screens/events/events_data.dart';
+import 'package:muve/data/events_data.dart';
 
 class EventsScreen extends StatelessWidget {
   const EventsScreen({super.key});

@@ -4,11 +4,11 @@ final List<Map<String, String>> eventsData = [
     'image': 'assets/images/images_events_screen/imagine-dragons_image.jpg',
     'description':
         'Prepare-se para uma noite inesquecível com o Imagine Dragons! Energia contagiante, hits internacionais e um espetáculo de luzes e som para marcar sua memória.',
-    'dateTime': '15 de Outubro de 2024 – 21h00', // data + hora
-    'local': 'Palco Central – São Paulo/SP', // local
-    'normal': 'Normal: R\$ 150,00', // ingresso normal
-    'vip': 'VIP: R\$ 300,00', // ingresso VIP
-    'camarote': 'Camarote: R\$ 500,00', // ingresso Camarote
+    'dateTime': '15 de Outubro de 2024 – 21h00',
+    'local': 'Palco Central – São Paulo/SP',
+    'normal': 'Normal: R\$ 150,00',
+    'vip': 'VIP: R\$ 300,00',
+    'camarote': 'Camarote: R\$ 500,00',
   },
   {
     'title': 'Linkin Park',
