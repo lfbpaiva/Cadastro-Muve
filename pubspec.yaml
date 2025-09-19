@@ -26,6 +26,7 @@ flutter:
     - assets/images/muvelogo.png
     - assets/images/images_events_screen/
     - assets/images/images_events_screen/images_events_sertanejo/
+    - assets/images/images_contrante_events_screen/
 
     # Você pode adicionar outras imagens depois
     # - assets/images/outra_imagem.png

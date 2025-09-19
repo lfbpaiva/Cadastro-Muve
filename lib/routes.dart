@@ -10,6 +10,8 @@ import 'screens/home_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/events/events_screen.dart';
 import 'screens/events/sertanejo_screen.dart';
+import 'screens/events/escolha_screen.dart';
+import 'screens/events/events_contratante_screen.dart';
 
 class Routes {
   static const splash = '/';
@@ -21,7 +23,9 @@ class Routes {
   static const profile = '/profile';
   static const events = '/events';
   static const sertanejo = '/sertanejo';
-  static const error = '/error'; // nova rota
+  static const error = '/error';
+  static const escolha = '/escolha';
+  static const eventsContratante = '/events_contratante'; // nova rota
 
   static Map<String, WidgetBuilder> getRoutes() => {
     splash: (context) => const SplashScreen(),
@@ -34,5 +38,7 @@ class Routes {
     events: (context) => const EventsScreen(),
     sertanejo: (context) => const SertanejoScreen(),
     error: (context) => const ErrorScreen(),
+    Routes.escolha: (context) => const EscolhaScreen(),
+    Routes.eventsContratante: (context) => const EventsContratanteScreen(),
   };
 }

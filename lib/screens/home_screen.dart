@@ -20,13 +20,13 @@ class HomeScreen extends StatelessWidget {
           topRight: Radius.circular(28),
         ),
         child: _BottomBar(
-          onTapEvents: () => Navigator.pushNamed(context, Routes.events),
+          // ✅ agora vai para a tela de escolha
+          onTapEvents: () => Navigator.pushNamed(context, Routes.escolha),
           onTapSearch: null,
           onTapMessages: null,
           onTapProfileRoute: Routes.profile,
         ),
       ),
-
       body: Container(
         decoration: BoxDecoration(gradient: gradient),
         child: SafeArea(
@@ -684,7 +684,6 @@ class _MuveFab extends StatelessWidget {
   }
 }
 
-/// Bottom bar com SafeArea interno e altura folgada
 class _BottomBar extends StatelessWidget {
   final VoidCallback? onTapEvents;
   final VoidCallback? onTapSearch;
