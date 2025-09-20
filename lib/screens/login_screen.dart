@@ -1,10 +1,56 @@
+import 'dart:convert'; // ⬅ necessário para decodificar JSON
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:http/http.dart' as http;
 import '../routes.dart';
-import '../theme/app_theme.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _senhaController = TextEditingController();
+
+  bool _isLoading = false;
+
+  Future<void> login() async {
+    setState(() => _isLoading = true);
+
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:3000/login'),
+      body: {'email': _emailController.text, 'senha': _senhaController.text},
+    );
+
+    if (!mounted) return;
+
+    setState(() => _isLoading = false);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+
+      if (data['success'] == true) {
+        final user =
+            data['user']; // exemplo: {"id":1,"nome":"Luiz","email":"luiz@muve.com"}
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Bem-vindo, ${user['nome']}!')));
+
+        Navigator.pushReplacementNamed(context, Routes.home);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(data['message'] ?? 'Erro ao fazer login')),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Erro no servidor. Tente novamente.')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +149,9 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                child: const TextField(
-                                  decoration: InputDecoration(
+                                child: TextField(
+                                  controller: _emailController,
+                                  decoration: const InputDecoration(
                                     hintText: "E-mail ou número de telefone",
                                     hintStyle: TextStyle(color: Colors.grey),
                                     border: InputBorder.none,
@@ -120,9 +167,10 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                child: const TextField(
+                                child: TextField(
+                                  controller: _senhaController,
                                   obscureText: true,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     hintText: "Senha",
                                     hintStyle: TextStyle(color: Colors.grey),
                                     border: InputBorder.none,
@@ -147,29 +195,29 @@ class LoginScreen extends StatelessWidget {
 
                       const SizedBox(height: 30),
 
-                      /// BOTÃO ENTRAR -> vai para HOME
+                      /// BOTÃO ENTRAR → agora com loading + JSON
                       FadeInUp(
                         duration: const Duration(milliseconds: 1600),
                         child: MaterialButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                              context,
-                              Routes.home, // ⬅ aqui é o ponto-chave
-                            );
-                          },
+                          onPressed: _isLoading ? null : login,
                           height: 45,
                           color: Colors.purple[900],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                           ),
-                          child: const Center(
-                            child: Text(
-                              "Entrar",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                          child: Center(
+                            child:
+                                _isLoading
+                                    ? const CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                    : const Text(
+                                      "Entrar",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                           ),
                         ),
                       ),
@@ -187,7 +235,7 @@ class LoginScreen extends StatelessWidget {
 
                       const SizedBox(height: 20),
 
-                      /// BOTÕES REDES SOCIAIS (placeholders)
+                      /// BOTÕES REDES SOCIAIS
                       Row(
                         children: <Widget>[
                           Expanded(

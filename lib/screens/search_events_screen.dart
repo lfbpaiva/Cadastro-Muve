@@ -15,15 +15,35 @@ class _SearchEventsScreenState extends State<SearchEventsScreen> {
   // eventos por gênero (simulado)
   final Map<String, List<Map<String, String>>> eventsByGenre = {
     'rock': [
-      {'title': 'Rock na Casa', 'image': 'assets/images/evento1.jpg', 'style': 'Rock'},
-      {'title': 'Rock Festival', 'image': 'assets/images/evento4.jpg', 'style': 'Rock'},
+      {
+        'title': 'Rock na Casa',
+        'image': 'assets/images/evento1.jpg',
+        'style': 'Rock',
+      },
+      {
+        'title': 'Rock Festival',
+        'image': 'assets/images/evento4.jpg',
+        'style': 'Rock',
+      },
     ],
     'jazz': [
-      {'title': 'Jazz Night', 'image': 'assets/images/evento2.jpg', 'style': 'Jazz'},
-      {'title': 'Smooth Jazz', 'image': 'assets/images/evento5.jpg', 'style': 'Jazz'},
+      {
+        'title': 'Jazz Night',
+        'image': 'assets/images/evento2.jpg',
+        'style': 'Jazz',
+      },
+      {
+        'title': 'Smooth Jazz',
+        'image': 'assets/images/evento5.jpg',
+        'style': 'Jazz',
+      },
     ],
     'eletronica': [
-      {'title': 'Eletrônica Party', 'image': 'assets/images/evento3.jpg', 'style': 'Eletrônica'},
+      {
+        'title': 'Eletrônica Party',
+        'image': 'assets/images/evento3.jpg',
+        'style': 'Eletrônica',
+      },
     ],
   };
 
@@ -80,8 +100,10 @@ class _SearchEventsScreenState extends State<SearchEventsScreen> {
                     prefixIcon: const Icon(Icons.search, color: Colors.black),
                     filled: true,
                     fillColor: Colors.white,
-                    contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 0,
+                      horizontal: 16,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
@@ -95,12 +117,17 @@ class _SearchEventsScreenState extends State<SearchEventsScreen> {
                 ),
               ),
               if (searchedGenre.isNotEmpty)
-                _buildCarousel(context, mainEvents, 'Eventos de $searchedGenre'),
+                _buildCarousel(
+                  context,
+                  mainEvents,
+                  'Eventos de $searchedGenre',
+                ),
               for (var genre in similarGenres)
                 _buildCarousel(
-                    context,
-                    eventsByGenre[genre] ?? [],
-                    'Talvez você goste também de $genre'),
+                  context,
+                  eventsByGenre[genre] ?? [],
+                  'Talvez você goste também de $genre',
+                ),
             ],
           ),
         ),
@@ -109,7 +136,10 @@ class _SearchEventsScreenState extends State<SearchEventsScreen> {
   }
 
   Widget _buildCarousel(
-      BuildContext context, List<Map<String, String>> events, String title) {
+    BuildContext context,
+    List<Map<String, String>> events,
+    String title,
+  ) {
     if (events.isEmpty) return const SizedBox.shrink();
 
     return Column(
@@ -137,12 +167,15 @@ class _SearchEventsScreenState extends State<SearchEventsScreen> {
                 child: Card(
                   color: Colors.white.withOpacity(0.1),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12),
+                        ),
                         child: Image.asset(
                           event['image']!,
                           width: 150,
@@ -158,39 +191,50 @@ class _SearchEventsScreenState extends State<SearchEventsScreen> {
                             Text(
                               event['title']!,
                               style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               event['style']!,
                               style: const TextStyle(
-                                  color: Colors.white70, fontSize: 11),
+                                color: Colors.white70,
+                                fontSize: 11,
+                              ),
                             ),
                             const SizedBox(height: 4),
                             Row(
                               children: [
-                                const Icon(Icons.search,
-                                    color: Colors.white70, size: 14),
+                                const Icon(
+                                  Icons.search,
+                                  color: Colors.white70,
+                                  size: 14,
+                                ),
                                 const SizedBox(width: 4),
                                 Flexible(
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 2, horizontal: 4),
+                                        vertical: 2,
+                                        horizontal: 4,
+                                      ),
                                       backgroundColor: AppTheme.primaryPurple,
                                       minimumSize: Size.zero,
                                       tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
+                                          MaterialTapTargetSize.shrinkWrap,
                                       shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(6)),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
                                     ),
                                     onPressed: () {
                                       Navigator.pushNamed(
-                                          context, Routes.events,
-                                          arguments: event);
+                                        context,
+                                        Routes.events,
+                                        arguments: event,
+                                      );
                                     },
                                     child: const Text(
                                       'Ver mais',
@@ -199,7 +243,7 @@ class _SearchEventsScreenState extends State<SearchEventsScreen> {
                                   ),
                                 ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),
