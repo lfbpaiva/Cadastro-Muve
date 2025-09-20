@@ -31,10 +31,7 @@ class LoginScreen extends StatelessWidget {
             Center(
               child: FadeInUp(
                 duration: const Duration(milliseconds: 1000),
-                child: Image.asset(
-                  'assets/images/muvelogo.png',
-                  height: 250,
-                ),
+                child: Image.asset('assets/images/muvelogo.png', height: 250),
               ),
             ),
 
@@ -210,7 +207,10 @@ class LoginScreen extends StatelessWidget {
                                     height: 45,
                                     decoration: BoxDecoration(
                                       gradient: const LinearGradient(
-                                        colors: [Colors.blue, Colors.blueAccent],
+                                        colors: [
+                                          Colors.blue,
+                                          Colors.blueAccent,
+                                        ],
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight,
                                       ),
